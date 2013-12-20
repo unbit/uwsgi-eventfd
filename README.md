@@ -59,3 +59,9 @@ alarm = oom log:your instance is out of memory !!!
 alarm-eventfd = oom %(cgroup)/cgroup.%(cgroup)/memory.oom_control
 ...
 ```
+
+The plugin can be built (once cloned) with:
+
+```sh
+uwsgi --build-plugin uwsgi-eventfd
+```
