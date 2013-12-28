@@ -21,7 +21,7 @@ cgroup = /sys/fs/cgroup/foobar
 ; create an alarm (simple log line, use something better in production like mail or jabber/xmpp)
 alarm = too_much_memory log:your instance is using too much memory
 ; raise too_much_memory whenever %(cgroup)/memory.usage_in_bytes is higher than 100MB
-alarm-eventfd = too_much_memory %(cgroup)/cgroup.%(cgroup)/memory.usage_in_bytesevent_control 100000000
+alarm-eventfd = too_much_memory %(cgroup)/cgroup.event_control %(cgroup)/memory.usage_in_bytes 100000000
 ...
 ```
 
@@ -39,10 +39,10 @@ alarm = too_much_memory200 log:your instance is using more than 200MB
 alarm = too_much_memory300 log:your instance is using more than 300MB
 
 ; raise too_much_memory whenever %(cgroup)/memory.usage_in_bytes is higher than 100MB
-alarm-eventfd = too_much_memory100 %(cgroup)/cgroup.%(cgroup)/memory.usage_in_bytesevent_control 100000000
+alarm-eventfd = too_much_memory100 %(cgroup)/cgroup.event_control %(cgroup)/memory.usage_in_bytes 100000000
 
-alarm-eventfd = too_much_memory200 %(cgroup)/cgroup.%(cgroup)/memory.usage_in_bytesevent_control 200000000
-alarm-eventfd = too_much_memory300 %(cgroup)/cgroup.%(cgroup)/memory.usage_in_bytesevent_control 300000000
+alarm-eventfd = too_much_memory200 %(cgroup)/cgroup.event_control %(cgroup)/memory.usage_in_bytes 200000000
+alarm-eventfd = too_much_memory300 %(cgroup)/cgroup.event_control %(cgroup)/memory.usage_in_bytes 300000000
 
 ...
 ```
@@ -56,7 +56,7 @@ plugins = eventfd
 cgroup = /sys/fs/cgroup/foobar
 ; create an alarm (simple log line, use something better in production like mail or jabber/xmpp)
 alarm = oom log:your instance is out of memory !!!
-alarm-eventfd = oom %(cgroup)/cgroup.%(cgroup)/memory.oom_control
+alarm-eventfd = oom %(cgroup)/cgroup.event_control %(cgroup)/memory.oom_control
 ...
 ```
 
