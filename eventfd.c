@@ -74,8 +74,17 @@ static int uwsgi_eventfd_init() {
 		close(control_fd);
 		close(subject_fd);
 
-		// register eventfd to the fd handler (make a copy of argv[0] so we safely free it)
-		uwsgi_add_alarm_fd(fd, argv[0], 8, uwsgi_str(argv[0]), strlen(argv[0]));
+		//does it contain a message ?
+		char *colon = strchr(argv[0], ':');
+		if (colon) {
+			*colon = 0;
+			uwsgi_add_alarm_fd(fd, argv[0], 8, uwsgi_str(colon+1), strlen(colon+1));
+		}
+		else {
+			// register eventfd to the fd handler (make a copy of argv[0] so we safely free it)
+			uwsgi_add_alarm_fd(fd, argv[0], 8, uwsgi_str(argv[0]), strlen(argv[0]));
+		}
+
 
 		// free memory allocated by the split_quoted parser
 		size_t i;
